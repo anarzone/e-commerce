@@ -57,6 +57,7 @@ class AuthController extends Controller
         $token->save();
 
         return response()->json([
+            "message" => "Logged in",
             'access_token' => $tokenResult->accessToken,
             'token_type' => 'Bearer',
             'expires_at' => Carbon::parse(
