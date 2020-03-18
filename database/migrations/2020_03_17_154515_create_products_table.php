@@ -27,7 +27,7 @@ class CreateProductsTable extends Migration
             $table->boolean('physical');
             $table->boolean('published');
             $table->bigInteger('category_id')->unsigned()->index();
-            $table->foreign('cateogory_id')->references('id')->on('categories');
+            $table->foreign('category_id')->references('id')->on('categories');
             $table->string('tags');
 
             $table->timestamps();
