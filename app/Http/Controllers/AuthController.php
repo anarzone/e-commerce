@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Vendor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
@@ -11,18 +12,32 @@ class AuthController extends Controller
 {
     public function register(Request $request){
         $request->validate([
-            'name' => 'required|string',
+            'first_name' => 'required|string',
+            'last_name' => 'required|string',
+            'username' => 'required|string',
+            'company_name' => 'required|string',
+            'type' => 'required|integer',
             'email' => 'required|string|email|unique:users',
             'password' => 'required|string|confirmed'
         ]);
 
        $user = new User([
-          'name' => $request->name,
+          'first_name' => $request->first_name,
+          'last_name' => $request->last_name,
+          'username' => $request->username,
+          'type' => $request->type,
           'email' => $request->email,
           'password' => bcrypt($request->password)
        ]);
 
        $user->save();
+
+        $vendor = new Vendor(['name' => $request->company_name]);
+        $vendor->save();
+
+        $user->vendors()->attach($vendor);
+
+        $user->save();
 
        return response()->json([
            'message' => 'User successfully created'
@@ -57,6 +72,7 @@ class AuthController extends Controller
         $token->save();
 
         return response()->json([
+            'vendors' => $user->vendors,
             "message" => "Logged in",
             'access_token' => $tokenResult->accessToken,
             'token_type' => 'Bearer',

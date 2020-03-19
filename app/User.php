@@ -10,6 +10,10 @@ use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
 {
+    const CUSTOMER_TYPE = 0;
+    const TENANT_TYPE = 1;
+    const ADMIN_TYPE = 2;
+
     use HasApiTokens, Notifiable, SoftDeletes;
 
     /**
@@ -18,7 +22,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'first_name', 'last_name', 'username', '', 'email', 'password',
+        'first_name', 'last_name', 'username', 'type', 'email', 'password',
     ];
 
     /**
@@ -38,4 +42,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function roles(){
+        return $this->belongsToMany('App\Role');
+    }
+
+    public function vendors(){
+        return $this->belongsToMany('App\Vendor', 'vendor_user');
+    }
 }

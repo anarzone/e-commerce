@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Vendors;
+use App\Vendor;
 use Illuminate\Http\Request;
 
 class VendorsController extends Controller
@@ -31,10 +31,10 @@ class VendorsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Vendors  $vendors
+     * @param  \App\Vendor  $vendors
      * @return \Illuminate\Http\Response
      */
-    public function show(Vendors $vendors)
+    public function show(Vendor $vendors)
     {
         //
     }
@@ -43,10 +43,10 @@ class VendorsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Vendors  $vendors
+     * @param  \App\Vendor  $vendors
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Vendors $vendors)
+    public function update(Request $request, Vendor $vendors)
     {
         //
     }
@@ -54,10 +54,10 @@ class VendorsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Vendors  $vendors
+     * @param  \App\Vendor  $vendors
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Vendors $vendors)
+    public function destroy(Vendor $vendors)
     {
         //
     }
