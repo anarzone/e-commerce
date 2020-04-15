@@ -16,6 +16,8 @@ class CreateVendorsTable extends Migration
         Schema::create('vendors', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
+            $table->string('app_code')->unique();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

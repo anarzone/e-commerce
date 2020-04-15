@@ -3,10 +3,12 @@
 use Illuminate\Database\Seeder;
 use App\User;
 use App\Role;
+use App\Vendor;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Schema;
 
-class UsersSeeder extends Seeder
+class UserSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,13 +17,17 @@ class UsersSeeder extends Seeder
      */
     public function run()
     {
-        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
-        User::truncate();
+        User::query()->delete();
+
         DB::table('role_user')->truncate();
 
-        $TenantRole = Role::where('name', 'tenant')->first();
-        $CustomerRole = Role::where('name', 'customer')->first();
+        $UserRole = Role::where('name', 'user')->first();
         $AdminRole = Role::where('name', 'admin')->first();
+
+        $Vendor = Vendor::create([
+            'name' => 'My Vendor',
+            'app_code' => 'WTH7I01PQ'
+        ]);
 
         $Tenant = User::create([
             'first_name' => 'Tenant Firstname',
@@ -43,19 +49,12 @@ class UsersSeeder extends Seeder
             'password' => Hash::make('customer123'),
             'remember_token' => Str::random(10),
         ]);
-        $Admin = User::create([
-            'first_name' => 'Admin Firstname',
-            'last_name' => 'Admin Lastname',
-            'username' => 'admin_username',
-            'type' => 'admin',
-            'email' => 'admin@gmail.com',
-            'email_verified_at' => now(),
-            'password' => Hash::make('admin123'),
-            'remember_token' => Str::random(10),
-        ]);
 
-        $Tenant->roles()->attach($TenantRole);
-        $Customer->roles()->attach($CustomerRole);
-        $Admin->roles()->attach($AdminRole);
+
+        $Tenant->roles()->attach($AdminRole);
+        $Customer->roles()->attach($UserRole);
+
+        $Vendor->users()->attach($Tenant);
+
     }
 }

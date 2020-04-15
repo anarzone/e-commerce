@@ -10,11 +10,14 @@ use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
 {
-    const CUSTOMER_TYPE = 0;
     const TENANT_TYPE = 1;
-    const ADMIN_TYPE = 2;
+    const TENANT_USER_TYPE = 2;
+    const ADMIN_ROLE = 'admin';
+    const USER_ROLE = 'user';
 
     use HasApiTokens, Notifiable, SoftDeletes;
+
+    protected $guard = 'admin';
 
     /**
      * The attributes that are mass assignable.

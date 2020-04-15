@@ -21,8 +21,6 @@ class CreateOrderItemsTable extends Migration
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->decimal('price', 15, 2);
             $table->integer('quantity');
-            $table->bigInteger('vendor_id')->unsigned()->index();
-            $table->foreign('vendor_id')->references('id')->on('vendors')->onDelete('cascade');
             $table->timestamps();
         });
     }

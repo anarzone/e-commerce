@@ -10,7 +10,7 @@ class Vendor extends Model
 {
     use Notifiable, SoftDeletes;
 
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'app_code'];
 
     public function users(){
         return $this->belongsToMany('App\User', 'vendor_user');

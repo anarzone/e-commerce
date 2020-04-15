@@ -11,6 +11,7 @@ class CreateProductOptionsTable extends Migration
      *
      * @return void
      */
+
     public function up()
     {
         Schema::create('product_options', function (Blueprint $table) {
@@ -21,7 +22,7 @@ class CreateProductOptionsTable extends Migration
             $table->bigInteger('option_id')->unsigned()->index();
             $table->foreign('option_id')->references('id')->on('options')->onDelete('cascade');
             $table->bigInteger('option_group_id')->unsigned()->index();
-            $table->foreign('option_group_id')->references('id')->on('option_groups')->onDelete('cascade');
+            $table->foreign('option_group_id')->references('id')->on('option_groups')->onDelete('no action');
             $table->timestamps();
         });
     }
